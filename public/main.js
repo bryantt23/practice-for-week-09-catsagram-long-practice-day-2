@@ -1,6 +1,8 @@
 export const createMainContent = () => {
   // Create h1
   const h1 = document.createElement('h1');
+  const button = document.createElement('button');
+  button.innerText = 'Replace image';
   h1.innerText = 'Catstagram';
 
   // Create img
@@ -10,9 +12,13 @@ export const createMainContent = () => {
 
   const container = document.querySelector('.container');
   container.appendChild(h1);
+  container.appendChild(button);
   container.appendChild(img);
 
   fetchImage();
+  button.addEventListener('click', () => {
+    fetchImage();
+  });
 };
 
 const fetchImage = async () => {
