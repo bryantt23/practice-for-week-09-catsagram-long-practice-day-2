@@ -1,21 +1,45 @@
+let popularityScore = 0;
 export const createMainContent = () => {
   // Create h1
   const h1 = document.createElement('h1');
   h1.innerText = 'Catstagram';
+  const p = document.createElement('p');
+  p.classList.add('popularity');
 
   // Create img
   const img = document.createElement('img');
   img.style.margin = '20px';
   img.style.maxWidth = '750px';
 
-  const replaceImageButton = createButton('Replace image', fetchImage);
+  const replaceImageButton = createButton('Replace image', () => {
+    popularityScore = 0;
+    fetchImage();
+  });
+  const upvoteButton = createButton('Upvote', () => {
+    popularityScore++;
+    setPopularitySection();
+  });
+  const downvoteButton = createButton('Downvote', () => {
+    popularityScore--;
+    setPopularitySection();
+  });
 
   const container = document.querySelector('.container');
   container.appendChild(h1);
+  container.appendChild(p);
+  container.appendChild(replaceImageButton);
+  container.appendChild(upvoteButton);
+  container.appendChild(downvoteButton);
   container.appendChild(replaceImageButton);
   fetchImage();
   container.appendChild(img);
+  setPopularitySection();
 };
+
+function setPopularitySection() {
+  const popularitySection = document.querySelector('.popularity');
+  popularitySection.innerText = `Popularity score ${popularityScore}`;
+}
 
 function createButton(text, func) {
   const button = document.createElement('button');
