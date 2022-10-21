@@ -1,8 +1,6 @@
 export const createMainContent = () => {
   // Create h1
   const h1 = document.createElement('h1');
-  const button = document.createElement('button');
-  button.innerText = 'Replace image';
   h1.innerText = 'Catstagram';
 
   // Create img
@@ -10,16 +8,23 @@ export const createMainContent = () => {
   img.style.margin = '20px';
   img.style.maxWidth = '750px';
 
+  const replaceImageButton = createButton('Replace image', fetchImage);
+
   const container = document.querySelector('.container');
   container.appendChild(h1);
-  container.appendChild(button);
-  container.appendChild(img);
-
+  container.appendChild(replaceImageButton);
   fetchImage();
-  button.addEventListener('click', () => {
-    fetchImage();
-  });
+  container.appendChild(img);
 };
+
+function createButton(text, func) {
+  const button = document.createElement('button');
+  button.innerText = text;
+  button.addEventListener('click', () => {
+    func();
+  });
+  return button;
+}
 
 const fetchImage = async () => {
   // Fetch image from API and set img url
