@@ -5,6 +5,14 @@ export const createMainContent = () => {
   h1.innerText = 'Catstagram';
   const p = document.createElement('p');
   p.classList.add('popularity');
+  const commentLabel = document.createElement('p');
+  commentLabel.innerText = 'Comment:';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.classList.add('comment');
+  const submitButton = createButton('Submit', addComment);
+  const commentsSection = document.createElement('div');
+  commentsSection.classList.add('comments');
 
   // Create img
   const img = document.createElement('img');
@@ -14,6 +22,7 @@ export const createMainContent = () => {
   const replaceImageButton = createButton('Replace image', () => {
     popularityScore = 0;
     fetchImage();
+    commentsSection.innerHTML = '';
   });
   const upvoteButton = createButton('Upvote', () => {
     popularityScore++;
@@ -31,10 +40,22 @@ export const createMainContent = () => {
   container.appendChild(upvoteButton);
   container.appendChild(downvoteButton);
   container.appendChild(replaceImageButton);
+  container.appendChild(commentLabel);
+  container.appendChild(input);
+  container.appendChild(submitButton);
   fetchImage();
   container.appendChild(img);
   setPopularitySection();
+  container.appendChild(commentsSection);
 };
+
+function addComment() {
+  const inputText = document.querySelector('.comment').value;
+  const comment = document.createElement('p');
+  comment.innerText = inputText;
+  const comments = document.querySelector('.comments');
+  comments.appendChild(comment);
+}
 
 function setPopularitySection() {
   const popularitySection = document.querySelector('.popularity');
